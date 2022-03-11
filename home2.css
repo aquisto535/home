@@ -14,7 +14,7 @@ input[type="text"] {
   width: 385px;
   height: 30px;
   outline: 0;
-  border: none;
+  border: 0;
   font-size: 1.5em;
   background-color: white;
   margin-right: 10px;

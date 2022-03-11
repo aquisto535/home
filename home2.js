@@ -8,8 +8,10 @@ document.querySelector('ul').addEventListener('click', deleteOrCheck);
 const TODOS_KEY = "todos"
 
 const toDoValue = document.querySelector('input');
+
     
 let toDos = []
+
 
 function saveToDos(){
     localStorage.setItem("TODOS_KEY",JSON.stringify(toDos))
