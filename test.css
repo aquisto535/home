@@ -1,4 +1,28 @@
-img{
-    height: 400px;
-    width: 400px;
+main {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 350px;
+  margin-top: 30px;
+}
+
+.fish_info {
+  display: flex;
+  background-color: #fff;
+  box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  width: 400px;
+  height: 400px;
+}
+
+.w3-hover-opacity {
+  width: 100%;
+}
+
+.search {
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.search input {
+  outline: none;
 }
