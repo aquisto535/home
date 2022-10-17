@@ -1,4 +1,3 @@
-const root_url = `https://zoo-animal-api.herokuapp.com/animals/rand/10`;
 const root_url2 = `https://www.fishwatch.gov/api/species`;
 const form = document.querySelector("form");
 const main = document.querySelector("main");
@@ -8,6 +7,7 @@ let todos_keys = [];
 fetch(root_url2)
   .then((Response) => Response.json())
   .then((result) => {
+    console.log(result);
     makeCards(result);
   });
 
@@ -85,39 +85,40 @@ async function getfish(name) {
 
       const todo_input = document.querySelector("#todo_form input");
 
-      //paintToDo(todo_form, todo_input);
-      todo_form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        // const todolist = document.getElementsByClassName("main-icon-like-text-write_comment");//
-
-        const todo_li = document.createElement("li");
-        todo_li.innerText = todo_input.value;
-        todo_li.id = Date.now();
-        todo_input.value = "";
-        const button = document.createElement("button");
-        button.innerText = "❌";
-        todo_li.appendChild(button);
-
-        const TodoObj = {
-          text: todo_li.innerText,
-          id: todo_li.id,
-        };
-        todolist.appendChild(todo_li);
-
-        todos_keys.push(TodoObj); // appendchild는 html요소에서만 쓴다. 배열에 대상을 넣을 때는 push를 쓴다!!!
-
-        localStorage.setItem("todos_keys", JSON.stringify(todos_keys));
-        button.addEventListener("click", deleteToDo);
-        // const get_todos = JSON.parse(localStorage.getItem("todos_key"));
-        // console.log(get_todos[0].text);
-      });
+      paintToDo(todo_form, todo_input, todolist);
     });
+}
+
+function paintToDo(todo_form, todo_input) {
+  todo_form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const todolist = document.getElementById("todolist");
+    const todo_li = document.createElement("li");
+    todo_li.innerText = todo_input.value;
+    todo_li.id = Date.now();
+    todo_input.value = "";
+    const button = document.createElement("button");
+    button.innerText = "❌";
+    todo_li.appendChild(button);
+    todolist.appendChild(todo_li);
+
+    const TodoObj = {
+      text: todo_li.innerText,
+      id: todo_li.id,
+    };
+
+    console.log(todos_keys);
+    todos_keys.push(TodoObj); // appendchild는 html요소에서만 쓴다. 배열에 대상을 넣을 때는 push를 쓴다!!! 파이썬과 헷갈리지 말것!
+    localStorage.setItem("todos_keys", JSON.stringify(todos_keys));
+    button.addEventListener("click", deleteToDo);
+  });
 }
 
 function deleteToDo(event) {
   const li = event.target.parentElement;
   console.log(li.id);
-  todos_keys = todos_keys.filter((todos_key) => todos_key.id !== li.id);// 기존과 다르게 parsed된 배열이 아니기 때문에 parseint를 쓰지 않아도 됨. 
+  todos_keys = todos_keys.filter((todos_key) => todos_key.id !== li.id); // 기존과 다르게 parsed된 배열이 아니기 때문에 parseint를 쓰지 않아도 됨.
 
   li.remove();
   localStorage.setItem("todos_keys", JSON.stringify(todos_keys));
